@@ -1,4 +1,0 @@
-[submodule "zaicontracts"]
-	path = zaicontracts
-	url = https://github.com/karenpbricker-zai/zaibackend.git
-	branch = main
