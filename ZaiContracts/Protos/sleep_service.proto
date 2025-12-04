@@ -1,6 +1,7 @@
 syntax = "proto3";
 package zaicontracts.sleep;
-option csharp_namespace = "SleepQBackend";
+
+option csharp_namespace = "Zaicontracts.Sleep";
 
 // Sleep Analysis Service
 service SleepService {
