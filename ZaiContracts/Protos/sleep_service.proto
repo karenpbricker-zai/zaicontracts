@@ -4,10 +4,10 @@ package zaicontracts.sleep;
 // Sleep Analysis Service
 service SleepService {
   // Analyze sleep data with streaming response
-  rpc AnalyzeSleep (SleepDataRequest) returns (stream ChatResponse);
+  rpc AnalyzeSleep (SleepDataRequest) returns (stream SleepChatResponse);
 
   // Chat with sleep assistant with streaming response
-  rpc Chat (ChatRequest) returns (stream ChatResponse);
+  rpc Chat (SleepChatRequest) returns (stream SleepChatResponse);
 }
 
 message SleepDataRequest {
@@ -19,17 +19,17 @@ message SleepDataRequest {
   string date = 6;
 }
 
-message ChatRequest {
+message SleepChatRequest {
   string message = 1;
-  repeated ChatMessage history = 2;
+  repeated SleepChatMessage history = 2;
 }
 
-message ChatMessage {
+message SleepChatMessage {
   string role = 1;
   string content = 2;
 }
 
-message ChatResponse {
+message SleepChatResponse {
   string content = 1;
   bool is_complete = 2;
 }
