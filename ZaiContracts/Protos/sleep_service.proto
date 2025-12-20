@@ -11,12 +11,26 @@ service SleepService {
 }
 
 message SleepDataRequest {
+  // Sleep duration data
   double total_sleep_hours = 1;
   double deep_sleep_hours = 2;
   double rem_sleep_hours = 3;
   double core_sleep_hours = 4;
-  double sleep_quality_percent = 5;
-  string date = 6;
+  double awake_hours = 5;
+  double in_bed_hours = 6;
+  double sleep_efficiency = 7;  // Percentage (0-100)
+
+  // Time range
+  string start_date = 8;  // ISO 8601 format
+  string end_date = 9;    // ISO 8601 format
+
+  // Health metrics during sleep
+  optional double average_heart_rate = 10;  // BPM
+  optional double min_heart_rate = 11;      // BPM
+  optional double max_heart_rate = 12;      // BPM
+  optional double heart_rate_variability = 13;  // HRV in milliseconds (SDNN)
+  optional double respiratory_rate = 14;    // Breaths per minute
+  optional double oxygen_saturation = 15;   // SpO2 percentage (0-100)
 }
 
 message SleepChatRequest {
