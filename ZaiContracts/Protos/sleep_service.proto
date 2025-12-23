@@ -66,12 +66,12 @@ message BaselineDto {
 message SleepChatRequest {
   string message = 1;
   repeated SleepChatMessage history = 2;
+  repeated SleepSessionDto sessions = 3; // last 14–21 nights
 }
 
 message SleepChatMessage {
   string role = 1;
-  string content = 2;
-  repeated SleepSessionDto history = 3; // last 14–21 nights
+  string content = 2; 
 }
 
 message SleepChatResponse {
