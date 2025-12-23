@@ -4,13 +4,35 @@ package zaicontracts.sleep;
 // Sleep Analysis Service
 service SleepService {
   // Analyze sleep data with streaming response
-  rpc AnalyzeSleep (SleepDataRequest) returns (stream SleepChatResponse);
+  rpc AnalyzeSleep (SleepDataRequest) returns (SleepDataResponse);
 
   // Chat with sleep assistant with streaming response
   rpc Chat (SleepChatRequest) returns (stream SleepChatResponse);
 }
 
-message SleepDataRequest {
+message SleepDataRequest { 
+	string user_id = 1;
+	SleepSessionDto session = 2;
+	repeated SleepSessionDto history = 3; // last 14–21 nights
+}
+
+message SleepDataResponse {
+  int32 sleep_score = 1;           // 0–100
+  double circadian_score = 2;      // 0–1
+  repeated string insights = 3;
+  BaselineDto baseline = 4;
+}
+
+message WeeklyInsightsRequest {
+  string user_id = 1;
+  repeated SleepSessionDto sessions = 2;
+}
+
+message WeeklyInsightsResponse {
+  repeated string insights = 1;
+}
+
+message SleepSessionDto {
   // Sleep duration data
   double total_sleep_hours = 1;
   double deep_sleep_hours = 2;
@@ -33,6 +55,14 @@ message SleepDataRequest {
   optional double oxygen_saturation = 15;   // SpO2 percentage (0-100)
 }
 
+message BaselineDto {
+  int64 avg_duration_sec = 1;
+  double avg_efficiency = 2;
+  double avg_deep_rem_ratio = 3;
+  string avg_bedtime = 4;          // HH:mm
+  string avg_waketime = 5;          // HH:mm
+}
+
 message SleepChatRequest {
   string message = 1;
   repeated SleepChatMessage history = 2;
@@ -41,6 +71,7 @@ message SleepChatRequest {
 message SleepChatMessage {
   string role = 1;
   string content = 2;
+  repeated SleepSessionDto history = 3; // last 14–21 nights
 }
 
 message SleepChatResponse {
