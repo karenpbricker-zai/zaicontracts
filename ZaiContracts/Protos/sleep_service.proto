@@ -4,7 +4,7 @@ package zaicontracts.sleep;
 // Sleep Analysis Service
 service SleepService {
   // Analyze sleep data with streaming response
-  rpc AnalyzeSleep (SleepDataRequest) returns (SleepChatResponse);
+  rpc AnalyzeSleep (SleepDataRequest) returns (stream SleepChatResponse);
 
   // Chat with sleep assistant with streaming response
   rpc Chat (SleepChatRequest) returns (stream SleepChatResponse);
