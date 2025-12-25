@@ -4,19 +4,22 @@ package zaicontracts.sleep;
 // Sleep Analysis Service
 service SleepService {
   // Analyze sleep data with streaming response
-  rpc AnalyzeSleep (SleepDataRequest) returns (SleepDataResponse);
+  rpc AnalyzeSleep (SleepDataRequest) returns (SleepChatResponse);
 
   // Chat with sleep assistant with streaming response
   rpc Chat (SleepChatRequest) returns (stream SleepChatResponse);
+
+  rpc GetSleepScore(GetSleepScoreRequest) returns (GetSleepScoreResponse);
+  rpc WeeklyInsights(WeeklyInsightsRequest) returns (WeeklyInsightsResponse);
 }
 
-message SleepDataRequest { 
-	string user_id = 1;
-	SleepSessionDto session = 2;
-	repeated SleepSessionDto history = 3; // last 14–21 nights
+message GetSleepScoreRequest {
+  string user_id = 1;
+  SleepSessionDto session = 2;
+  repeated SleepSessionDto history = 3; // last 14–21 nights
 }
 
-message SleepDataResponse {
+message GetSleepScoreResponse {
   int32 sleep_score = 1;           // 0–100
   double circadian_score = 2;      // 0–1
   repeated string insights = 3;
@@ -32,7 +35,7 @@ message WeeklyInsightsResponse {
   repeated string insights = 1;
 }
 
-message SleepSessionDto {
+message SleepDataRequest {
   // Sleep duration data
   double total_sleep_hours = 1;
   double deep_sleep_hours = 2;
@@ -53,6 +56,19 @@ message SleepSessionDto {
   optional double heart_rate_variability = 13;  // HRV in milliseconds (SDNN)
   optional double respiratory_rate = 14;    // Breaths per minute
   optional double oxygen_saturation = 15;   // SpO2 percentage (0-100)
+}
+
+message SleepSessionDto {
+  string date = 1;                 // ISO date (night anchor)
+  int64 time_in_bed_sec = 2;
+  int64 total_sleep_sec = 3;
+  int64 awake_sec = 4;
+  int64 rem_sec = 5;
+  int64 deep_sec = 6;
+  int64 core_sec = 7;
+
+  bool morning_activity = 8;       // proxy for daylight
+  bool late_activity = 9;          // after 9–10pm
 }
 
 message BaselineDto {
