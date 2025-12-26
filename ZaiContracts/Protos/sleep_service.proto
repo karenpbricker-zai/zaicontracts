@@ -14,9 +14,8 @@ service SleepService {
 }
 
 message GetSleepScoreRequest {
-  string user_id = 1;
-  SleepSessionDto session = 2;
-  repeated SleepSessionDto history = 3; // last 14–21 nights
+  SleepSessionDto session = 1;
+  repeated SleepSessionDto history = 2; // last 14–21 nights
 }
 
 message GetSleepScoreResponse {
@@ -27,8 +26,7 @@ message GetSleepScoreResponse {
 }
 
 message WeeklyInsightsRequest {
-  string user_id = 1;
-  repeated SleepSessionDto sessions = 2;
+  repeated SleepSessionDto sessions = 1;
 }
 
 message WeeklyInsightsResponse {
@@ -38,7 +36,7 @@ message WeeklyInsightsResponse {
 message SleepDataRequest {
   // Sleep duration data
   double total_sleep_hours = 1;
-  double deep_sleep_hours = 2;
+  double deep_sleep_hours = 2;																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		
   double rem_sleep_hours = 3;
   double core_sleep_hours = 4;
   double awake_hours = 5;
@@ -60,12 +58,12 @@ message SleepDataRequest {
 
 message SleepSessionDto {
   string date = 1;                 // ISO date (night anchor)
-  int64 time_in_bed_sec = 2;
-  int64 total_sleep_sec = 3;
-  int64 awake_sec = 4;
-  int64 rem_sec = 5;
-  int64 deep_sec = 6;
-  int64 core_sec = 7;
+  double in_bed_hours = 2;
+  double total_sleep_hours = 3;
+  double awake_hours = 4;
+  double rem_sleep_hours = 5;
+  double deep_sleep_hours = 6;
+  double core_sleep_hours = 7;
 
   bool morning_activity = 8;       // proxy for daylight
   bool late_activity = 9;          // after 9–10pm
