@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="Protos\sleep_service_enums.proto" />
+    <Protobuf Include="Protos\sleep_service_messages.proto" />
     <Protobuf Include="Protos\sleep_service.proto" GrpcServices="Both" />
     <Compile Update="obj\**\*.cs" Pack="false" />
   </ItemGroup>

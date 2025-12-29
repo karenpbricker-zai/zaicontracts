@@ -1,0 +1,178 @@
+﻿syntax = "proto3";
+
+package zaicontracts.sleep;
+import "Protos/sleep_service_enums.proto";
+
+// =======================
+// TODAY (HOME)
+// =======================
+
+message GetTodayRequest {
+  // Empty by design (implicit "today")
+}
+
+message GetTodayResponse {
+  string date = 1;
+  string sleep_quality = 2; // "Good", "Fair", etc
+  double confidence = 3;
+  repeated IssueSummary top_issues = 4;
+}
+
+message IssueSummary {
+  SleepElement element = 1;
+  int32 score = 2;           // 0–100
+  double confidence = 3;     // 0–1
+  string summary = 4;
+  repeated string evidence = 5;
+  string recommended_action = 6;
+}
+
+// =======================
+// ISSUE DETAIL (PREMIUM)
+// =======================
+
+message GetIssueDetailRequest {
+  SleepElement element = 1;
+}
+
+message GetIssueDetailResponse {
+  SleepElement element = 1;
+  int32 score = 2;
+  double confidence = 3;
+  string explanation = 4;
+  repeated string evidence = 5;
+  Trend trend = 6;
+  RecommendedAction recommended_action = 7;
+  LearningStatus status = 8;
+}
+
+message Trend {
+  TrendDirection direction = 1;
+  int32 days = 2;
+}
+
+// =======================
+// IMPROVE (ACTION FOCUS)
+// =======================
+
+message GetImproveRequest {
+  // Empty
+}
+
+message GetImproveResponse {
+  SleepElement focus_element = 1;
+  double confidence = 2;
+  RecommendedAction action = 3;
+  LearningState status = 4;
+}
+
+message RecommendedAction {
+  string title = 1;
+  string description = 2;
+}
+
+// =======================
+// INSIGHTS (HISTORY / PREMIUM)
+// =======================
+
+message GetInsightsRequest {
+  int32 range_days = 1; // e.g. 7, 14, 30
+}
+
+message GetInsightsResponse {
+  int32 range_days = 1;
+  repeated ElementInsight elements = 2;
+  LearningState status = 3;
+}
+
+message ElementInsight {
+  SleepElement element = 1;
+  int32 average_score = 2;
+  TrendDirection trend = 3;
+}
+
+message LearningState {
+  string message = 1;
+  double confidence = 2;
+}
+
+message GetSleepScoreRequest {
+  SleepSessionDto session = 1;
+  repeated SleepSessionDto history = 2; // last 14–21 nights
+}
+
+message GetSleepScoreResponse {
+  int32 sleep_score = 1;           // 0–100
+  double circadian_score = 2;      // 0–1
+  repeated string insights = 3;
+  BaselineDto baseline = 4;
+}
+
+message WeeklyInsightsRequest {
+  repeated SleepSessionDto sessions = 1;
+}
+
+message WeeklyInsightsResponse {
+  repeated string insights = 1;
+}
+
+message SleepSessionDto {
+  string date = 1;                 // ISO date (night anchor)
+  double in_bed_hours = 2;
+  double total_sleep_hours = 3;
+  double awake_hours = 4;
+  double rem_sleep_hours = 5;
+  double deep_sleep_hours = 6;
+  double core_sleep_hours = 7;
+
+  bool morning_activity = 8;       // proxy for daylight
+  bool late_activity = 9;          // after 9–10pm
+}
+
+message BaselineDto {
+  int64 avg_duration_sec = 1;
+  double avg_efficiency = 2;
+  double avg_deep_rem_ratio = 3;
+  string avg_bedtime = 4;          // HH:mm
+  string avg_waketime = 5;          // HH:mm
+}
+
+message SleepChatRequest {
+  string message = 1;
+  repeated SleepChatMessage history = 2;
+  repeated SleepSessionDto sessions = 3; // last 14–21 nights
+}
+
+message SleepChatMessage {
+  string role = 1;
+  string content = 2; 
+}
+
+message SleepChatResponse {
+  string content = 1;
+  bool is_complete = 2;
+}
+
+message SleepDataRequest {
+  double total_sleep_hours = 1;
+  double deep_sleep_hours = 2;																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																		
+  double rem_sleep_hours = 3;
+  double core_sleep_hours = 4;
+  double awake_hours = 5;
+  double in_bed_hours = 6;
+  double sleep_efficiency = 7;  // Percentage (0-100)
+
+  // Time range
+  string start_date = 8;  // ISO 8601 format
+  string end_date = 9;    // ISO 8601 format
+
+  // Health metrics during sleep
+  optional double average_heart_rate = 10;  // BPM
+  optional double min_heart_rate = 11;      // BPM
+  optional double max_heart_rate = 12;      // BPM
+  optional double heart_rate_variability = 13;  // HRV in milliseconds (SDNN)
+  optional double respiratory_rate = 14;    // Breaths per minute
+  optional double oxygen_saturation = 15;   // SpO2 percentage (0-100)
+}
+
+
