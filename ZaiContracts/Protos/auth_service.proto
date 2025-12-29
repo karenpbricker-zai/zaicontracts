@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package zaicontracts.auth;
+
+// Authentication Service
+service AuthService {
+  // Create anonymous user (no login required)
+  rpc CreateAnonymousUser(CreateAnonymousUserRequest) returns (CreateAnonymousUserResponse);
+
+  // Link anonymous account to Apple ID (for multi-device sync)
+  rpc LinkAppleAccount(LinkAppleAccountRequest) returns (LinkAppleAccountResponse);
+
+  // Sign in with Apple (create or login)
+  rpc SignInWithApple(SignInWithAppleRequest) returns (SignInWithAppleResponse);
+}
+
+// ==================
+// Anonymous User Creation
+// ==================
+
+message CreateAnonymousUserRequest {
+  string device_id = 1;  // iOS identifierForVendor
+}
+
+message CreateAnonymousUserResponse {
+  string user_id = 1;
+  string access_token = 2;  // Currently just returns user_id, later will be JWT
+}
+
+// ==================
+// Link Apple Account
+// ==================
+
+message LinkAppleAccountRequest {
+  string anonymous_user_id = 1;
+  string apple_user_id = 2;
+  string email = 3;
+  string full_name = 4;
+}
+
+message LinkAppleAccountResponse {
+  string user_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// ==================
+// Apple Sign In
+// ==================
+
+message SignInWithAppleRequest {
+  string apple_user_id = 1;
+  string email = 2;
+  string full_name = 3;
+}
+
+message SignInWithAppleResponse {
+  string user_id = 1;
+  string access_token = 2;
+  bool is_new_user = 3;
+}
