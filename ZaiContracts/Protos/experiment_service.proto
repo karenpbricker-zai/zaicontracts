@@ -20,4 +20,8 @@ service ExperimentService {
   // Complete an experiment and get results
   rpc CompleteExperiment (CompleteExperimentRequest)
       returns (ExperimentResult);
+
+  // Submit sleep context (stress, caffeine, etc.) for a night
+  rpc SubmitSleepContext (SubmitSleepContextRequest)
+      returns (SubmitSleepContextResponse);
 }
