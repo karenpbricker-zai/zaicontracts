@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package zaicontracts.sleep;
+import "Protos/sleep_service_messages.proto";
+
+// Experiment Service - manages sleep improvement experiments
+service ExperimentService {
+  // Get a recommended experiment based on user's sleep data
+  rpc GetRecommendedExperiment (GetRecommendedExperimentRequest)
+      returns (GetRecommendedExperimentResponse);
+
+  // Start a new experiment
+  rpc StartExperiment (StartExperimentRequest)
+      returns (ExperimentStatus);
+
+  // Get the user's currently active experiment
+  rpc GetActiveExperiment (GetActiveExperimentRequest)
+      returns (ExperimentStatus);
+
+  // Complete an experiment and get results
+  rpc CompleteExperiment (CompleteExperimentRequest)
+      returns (ExperimentResult);
+}

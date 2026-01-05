@@ -20,6 +20,7 @@
     <Protobuf Include="Protos\sleep_service_messages.proto" />
     <Protobuf Include="Protos\sleep_service.proto" GrpcServices="Both" />
     <Protobuf Include="Protos\auth_service.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\experiment_service.proto" GrpcServices="Both" />
     <Compile Update="obj\**\*.cs" Pack="false" />
   </ItemGroup>
 
