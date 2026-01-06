@@ -29,4 +29,8 @@ service SleepService {
   // Trends & history
   rpc GetInsights (GetInsightsRequest)
       returns (GetInsightsResponse);
+
+  // Save sleep day data from HealthKit/UserInput
+  rpc SaveSleepDay (SaveSleepDayRequest)
+      returns (SaveSleepDayResponse);
 }
