@@ -182,6 +182,24 @@ message SaveSleepDayResponse {
 }
 
 // =======================
+// BASELINE DATA
+// =======================
+
+message SaveBaselineRequest {
+  int64 avg_duration_sec = 1;
+  double avg_efficiency = 2;
+  double avg_deep_rem_ratio = 3;
+  string avg_bedtime = 4;          // HH:mm format
+  string avg_waketime = 5;         // HH:mm format
+  int32 session_count = 6;         // Number of sessions used to calculate baseline
+}
+
+message SaveBaselineResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// =======================
 // EXPERIMENT RECOMMENDATION
 // =======================
 

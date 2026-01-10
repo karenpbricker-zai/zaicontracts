@@ -33,4 +33,8 @@ service SleepService {
   // Save sleep day data from HealthKit/UserInput
   rpc SaveSleepDay (SaveSleepDayRequest)
       returns (SaveSleepDayResponse);
+
+  // Save user baseline
+  rpc SaveBaseline (SaveBaselineRequest)
+      returns (SaveBaselineResponse);
 }
