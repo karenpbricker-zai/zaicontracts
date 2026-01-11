@@ -118,28 +118,29 @@ message WeeklyInsightsResponse {
 
 message SleepSessionDto {
   string date = 1;                 // ISO date (night anchor)
-  double in_bed_hours = 2;
-  double total_sleep_hours = 3;
-  double awake_hours = 4;
-  double rem_sleep_hours = 5;
-  double deep_sleep_hours = 6;
-  double core_sleep_hours = 7;
-
-  bool morning_activity = 8;       // proxy for daylight
-  bool late_activity = 9;          // after 9–10pm
+  optional string bedtime = 2;          // ISO datetime
+  optional string wake_time = 3;        // ISO datetime
+  optional int32 time_in_bed_min = 4;
+  optional int32 total_sleep_min = 5;
+  optional int32 sleep_latency_min = 6;
+  optional int32 waso_min = 7;          // Wake After Sleep Onset
+  optional double sleep_efficiency_pct = 8;
+  optional double rem_pct = 9;
+  optional double deep_pct = 10;
+  optional double light_pct = 11;
+  optional double movement_index = 12;
+  optional double avg_hr = 13;
+  optional double min_hr = 14;
+  optional double avg_hrv = 15;
+  optional double temp_deviation = 16;
 }
 
 message BaselineDto {
-  string window_start = 1;  // ISO 8601 date
-  string window_end = 2;    // ISO 8601 date
-  int32 sample_size = 3;
-  
-  double avg_total_sleep_min = 4;
-  double avg_sleep_efficiency_pct = 5;
-  double avg_rem_pct = 6;
-  double avg_deep_pct = 7;
-  double avg_hr = 8;
-  double avg_hrv = 9;
+  int64 avg_duration_sec = 1;
+  double avg_efficiency = 2;
+  double avg_deep_rem_ratio = 3;
+  string avg_bedtime = 4;          // HH:mm
+  string avg_waketime = 5;          // HH:mm
 }
 
 message SleepChatRequest {
@@ -191,16 +192,12 @@ message SaveSleepDayResponse {
 // =======================
 
 message SaveBaselineRequest {
-  string window_start = 1;  // ISO 8601 date
-  string window_end = 2;    // ISO 8601 date
-  int32 sample_size = 3;
-  
-  double avg_total_sleep_min = 4;
-  double avg_sleep_efficiency_pct = 5;
-  double avg_rem_pct = 6;
-  double avg_deep_pct = 7;
-  double avg_hr = 8;
-  double avg_hrv = 9;
+  int64 avg_duration_sec = 1;
+  double avg_efficiency = 2;
+  double avg_deep_rem_ratio = 3;
+  string avg_bedtime = 4;          // HH:mm format
+  string avg_waketime = 5;         // HH:mm format
+  int32 session_count = 6;         // Number of sessions used to calculate baseline
 }
 
 message SaveBaselineResponse {
