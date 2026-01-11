@@ -130,11 +130,16 @@ message SleepSessionDto {
 }
 
 message BaselineDto {
-  int64 avg_duration_sec = 1;
-  double avg_efficiency = 2;
-  double avg_deep_rem_ratio = 3;
-  string avg_bedtime = 4;          // HH:mm
-  string avg_waketime = 5;          // HH:mm
+  string window_start = 1;  // ISO 8601 date
+  string window_end = 2;    // ISO 8601 date
+  int32 sample_size = 3;
+  
+  double avg_total_sleep_min = 4;
+  double avg_sleep_efficiency_pct = 5;
+  double avg_rem_pct = 6;
+  double avg_deep_pct = 7;
+  double avg_hr = 8;
+  double avg_hrv = 9;
 }
 
 message SleepChatRequest {
@@ -186,12 +191,16 @@ message SaveSleepDayResponse {
 // =======================
 
 message SaveBaselineRequest {
-  int64 avg_duration_sec = 1;
-  double avg_efficiency = 2;
-  double avg_deep_rem_ratio = 3;
-  string avg_bedtime = 4;          // HH:mm format
-  string avg_waketime = 5;         // HH:mm format
-  int32 session_count = 6;         // Number of sessions used to calculate baseline
+  string window_start = 1;  // ISO 8601 date
+  string window_end = 2;    // ISO 8601 date
+  int32 sample_size = 3;
+  
+  double avg_total_sleep_min = 4;
+  double avg_sleep_efficiency_pct = 5;
+  double avg_rem_pct = 6;
+  double avg_deep_pct = 7;
+  double avg_hr = 8;
+  double avg_hrv = 9;
 }
 
 message SaveBaselineResponse {
