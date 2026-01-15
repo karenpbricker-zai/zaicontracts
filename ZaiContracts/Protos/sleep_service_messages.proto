@@ -136,11 +136,14 @@ message SleepSessionDto {
 }
 
 message BaselineDto {
-  int64 avg_duration_sec = 1;
-  double avg_efficiency = 2;
-  double avg_deep_rem_ratio = 3;
+  int64 avg_total_sleep_min = 1;
+  double avg_sleep_efficiency_pct = 2;
+  double avg_deep_pct = 3;
   string avg_bedtime = 4;          // HH:mm
   string avg_waketime = 5;          // HH:mm
+  double avg_hr = 6;
+  double avg_hrv = 7;
+  double avg_rem_pct = 8;
 }
 
 message SleepChatRequest {
