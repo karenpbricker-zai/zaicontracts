@@ -37,4 +37,8 @@ service SleepService {
   // Save user baseline
   rpc SaveBaseline (SaveBaselineRequest)
       returns (SaveBaselineResponse);
+
+  // Save user sleep context (stress, caffeine, etc.)
+  rpc SaveSleepContext (SubmitSleepContextRequest)
+      returns (SubmitSleepContextResponse);
 }
