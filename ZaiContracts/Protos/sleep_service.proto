@@ -41,4 +41,8 @@ service SleepService {
   // Save user sleep context (stress, caffeine, etc.)
   rpc SaveSleepContext (SubmitSleepContextRequest)
       returns (SubmitSleepContextResponse);
+
+  // Home screen - single scroll view with all data
+  rpc GetHomeScreen (GetHomeScreenRequest)
+      returns (GetHomeScreenResponse);
 }
