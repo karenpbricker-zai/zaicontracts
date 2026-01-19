@@ -285,6 +285,24 @@ message SubmitSleepContextResponse {
 
 message GetHomeScreenRequest {
   string date = 1; // Optional: defaults to today if empty
+
+  // Optional sleep data to save (from HealthKit sync)
+  // If provided, will save sleep day, calculate baseline, and score elements
+  optional string bedtime = 2;          // ISO datetime
+  optional string wake_time = 3;        // ISO datetime
+  optional int32 time_in_bed_min = 4;
+  optional int32 total_sleep_min = 5;
+  optional int32 sleep_latency_min = 6;
+  optional int32 waso_min = 7;          // Wake After Sleep Onset
+  optional double sleep_efficiency_pct = 8;
+  optional double rem_pct = 9;
+  optional double deep_pct = 10;
+  optional double light_pct = 11;
+  optional double movement_index = 12;
+  optional double avg_hr = 13;
+  optional double min_hr = 14;
+  optional double avg_hrv = 15;
+  optional double temp_deviation = 16;
 }
 
 message GetHomeScreenResponse {
