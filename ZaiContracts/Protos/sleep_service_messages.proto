@@ -288,6 +288,7 @@ message GetHomeScreenRequest {
 
   // Optional sleep data to save (from HealthKit sync)
   // If provided, will save sleep day, calculate baseline, and score elements
+  // NOTE: If data already exists for this date, save is skipped unless force_refresh=true
   optional string bedtime = 2;          // ISO datetime
   optional string wake_time = 3;        // ISO datetime
   optional int32 time_in_bed_min = 4;
@@ -303,6 +304,10 @@ message GetHomeScreenRequest {
   optional double min_hr = 14;
   optional double avg_hrv = 15;
   optional double temp_deviation = 16;
+
+  // Force recalculation even if data already exists for this date
+  // Use for pull-to-refresh or when HealthKit data has been updated
+  bool force_refresh = 17;
 }
 
 message GetHomeScreenResponse {
