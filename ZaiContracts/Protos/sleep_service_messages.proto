@@ -332,6 +332,21 @@ message GetHomeScreenResponse {
   // Metadata
   bool has_sleep_data = 11;
   bool has_context_data = 12;
+
+  // Experiment suggestion (shown when eligible)
+  // Only shown when: same pattern ≥3 times, confidence ≥ moderate, no active experiment
+  ExperimentSuggestion experiment_suggestion = 13;
+}
+
+message ExperimentSuggestion {
+  bool show_suggestion = 1;  // Whether to show the experiment prompt
+  string experiment_id = 2;
+  string experiment_name = 3;
+  string prompt_message = 4;  // "We think something specific might be affecting your sleep."
+  string action_preview = 5;  // Brief description of what user will do
+  int32 duration_nights = 6;
+  SleepElement target_element = 7;
+  string pattern_observed = 8;  // e.g., "Low deep sleep 4 nights in a row"
 }
 
 message StandoutItem {
