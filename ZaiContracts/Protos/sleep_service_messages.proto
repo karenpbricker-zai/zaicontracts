@@ -308,6 +308,9 @@ message GetHomeScreenRequest {
   // Force recalculation even if data already exists for this date
   // Use for pull-to-refresh or when HealthKit data has been updated
   bool force_refresh = 17;
+
+  // Client's local hour (0-23) for time-appropriate greeting
+  optional int32 local_hour = 18;
 }
 
 message GetHomeScreenResponse {
@@ -372,6 +375,9 @@ message SleepDataRequest {
   optional double heart_rate_variability = 13;  // HRV in milliseconds (SDNN)
   optional double respiratory_rate = 14;    // Breaths per minute
   optional double oxygen_saturation = 15;   // SpO2 percentage (0-100)
+
+  // Optional user prompt to customize the AI-generated response
+  optional string user_prompt = 16;
 }
 
 
