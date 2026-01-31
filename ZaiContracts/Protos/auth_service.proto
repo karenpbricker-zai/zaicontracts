@@ -12,6 +12,9 @@ service AuthService {
 
   // Sign in with Apple (create or login)
   rpc SignInWithApple(SignInWithAppleRequest) returns (SignInWithAppleResponse);
+
+  // Save user profile (one user = one profile, upsert)
+  rpc SaveUserProfile(SaveUserProfileRequest) returns (SaveUserProfileResponse);
 }
 
 // ==================
@@ -58,4 +61,22 @@ message SignInWithAppleResponse {
   string user_id = 1;
   string access_token = 2;
   bool is_new_user = 3;
+}
+
+// ==================
+// User Profile
+// ==================
+
+message SaveUserProfileRequest {
+  int32 sleep_goal = 1;
+  double sleep_time = 2;
+  int32 sleep_quality = 3;
+  int32 get_on_bed_time = 4;
+  int32 get_up_time = 5;
+  int32 motivation = 6;
+}
+
+message SaveUserProfileResponse {
+  bool success = 1;
+  string message = 2;
 }
