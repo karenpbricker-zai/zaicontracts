@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package zaicontracts.auth;
 
+import "Protos/sleep_service_enums.proto";
+
 // Authentication Service
 service AuthService {
   // Create anonymous user (no login required)
@@ -68,11 +70,11 @@ message SignInWithAppleResponse {
 // ==================
 
 message SaveUserProfileRequest {
-  int32 sleep_goal = 1;
+  zaicontracts.sleep.ProfileSleepGoal sleep_goal = 1;
   double sleep_time = 2;
   int32 sleep_quality = 3;
-  int32 get_on_bed_time = 4;
-  int32 get_up_time = 5;
+  zaicontracts.sleep.ProfileSleepTime get_on_bed_time = 4;
+  zaicontracts.sleep.ProfileWakeTime get_up_time = 5;
   int32 motivation = 6;
 }
 
