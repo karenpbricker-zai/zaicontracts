@@ -279,6 +279,29 @@ message SubmitSleepContextResponse {
   string input_id = 2;
 }
 
+message GetExperimentHistoryRequest {
+}
+
+message GetExperimentHistoryResponse {
+  repeated ExperimentHistoryItem experiments = 1;
+}
+
+message ExperimentHistoryItem {
+  string run_id = 1;
+  string experiment_id = 2;
+  string name = 3;
+  SleepElement linked_element = 4;
+  string start_date = 5;
+  string end_date = 6;
+  int32 duration_nights = 7;
+  int32 baseline_score = 8;
+  int32 result_score = 9;
+  int32 delta = 10;
+  double confidence = 11;
+  ExperimentOutcome outcome = 12;
+  string summary = 13;
+}
+
 // ============================================
 // GetHomeScreen - Single scroll home screen
 // ============================================

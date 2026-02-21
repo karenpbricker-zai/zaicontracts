@@ -24,4 +24,8 @@ service ExperimentService {
   // Submit sleep context (stress, caffeine, etc.) for a night
   rpc SubmitSleepContext (zaicontracts.sleep.SubmitSleepContextRequest)
       returns (zaicontracts.sleep.SubmitSleepContextResponse);
+
+  // Get the user's experiment history (completed experiments)
+  rpc GetExperimentHistory (zaicontracts.sleep.GetExperimentHistoryRequest)
+      returns (zaicontracts.sleep.GetExperimentHistoryResponse);
 }
