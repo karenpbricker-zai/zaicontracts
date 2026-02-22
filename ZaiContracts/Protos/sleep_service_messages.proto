@@ -403,4 +403,43 @@ message SleepDataRequest {
   optional string user_prompt = 16;
 }
 
+// =======================
+// WEEKLY REPORT
+// =======================
 
+message GetWeeklyReportRequest {
+  string week_start_date = 1;  // Optional: ISO date, defaults to most recent
+}
+
+message GetWeeklyReportResponse {
+  bool has_report = 1;
+  string week_start_date = 2;
+  string week_end_date = 3;
+  int32 overall_score = 4;
+  int32 baseline_score = 5;
+  int32 delta = 6;
+  repeated WeeklyReportElementDto elements = 7;
+}
+
+message WeeklyReportElementDto {
+  SleepElement element = 1;
+  int32 avg_score = 2;
+  int32 baseline_avg_score = 3;
+  int32 delta = 4;
+  string status = 5;
+}
+
+message GetWeeklyReportsListRequest {
+  int32 limit = 1;  // defaults to 10
+}
+
+message GetWeeklyReportsListResponse {
+  repeated WeeklyReportSummary reports = 1;
+}
+
+message WeeklyReportSummary {
+  string week_start_date = 1;
+  string week_end_date = 2;
+  int32 overall_score = 3;
+  int32 delta = 4;
+}

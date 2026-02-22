@@ -45,4 +45,12 @@ service SleepService {
   // Home screen - single scroll view with all data
   rpc GetHomeScreen (GetHomeScreenRequest)
       returns (GetHomeScreenResponse);
+
+  // Weekly report - single report detail
+  rpc GetWeeklyReport (GetWeeklyReportRequest)
+      returns (GetWeeklyReportResponse);
+
+  // Weekly report - list of report summaries
+  rpc GetWeeklyReportsList (GetWeeklyReportsListRequest)
+      returns (GetWeeklyReportsListResponse);
 }
