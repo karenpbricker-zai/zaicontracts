@@ -17,6 +17,12 @@ service AuthService {
 
   // Save user profile (one user = one profile, upsert)
   rpc SaveUserProfile(SaveUserProfileRequest) returns (SaveUserProfileResponse);
+
+  // Register device token for push notifications
+  rpc RegisterDeviceToken(RegisterDeviceTokenRequest) returns (RegisterDeviceTokenResponse);
+
+  // Unregister device token (e.g. on sign out)
+  rpc UnregisterDeviceToken(UnregisterDeviceTokenRequest) returns (UnregisterDeviceTokenResponse);
 }
 
 // ==================
@@ -81,4 +87,25 @@ message SaveUserProfileRequest {
 message SaveUserProfileResponse {
   bool success = 1;
   string message = 2;
+}
+
+// ==================
+// Device Token (Push Notifications)
+// ==================
+
+message RegisterDeviceTokenRequest {
+  string token = 1;        // APNS device token (hex string)
+  string platform = 2;     // "ios" (future: "android")
+}
+
+message RegisterDeviceTokenResponse {
+  bool success = 1;
+}
+
+message UnregisterDeviceTokenRequest {
+  string token = 1;
+}
+
+message UnregisterDeviceTokenResponse {
+  bool success = 1;
 }
