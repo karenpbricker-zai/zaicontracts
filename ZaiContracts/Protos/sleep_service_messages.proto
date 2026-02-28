@@ -201,6 +201,8 @@ message SaveBaselineRequest {
   string avg_bedtime = 4;          // HH:mm format
   string avg_waketime = 5;         // HH:mm format
   int32 session_count = 6;         // Number of sessions used to calculate baseline
+  optional string window_start = 7;         // ISO datetime - start of baseline window
+  optional string window_end = 8;           // ISO datetime - end of baseline window
 }
 
 message SaveBaselineResponse {
