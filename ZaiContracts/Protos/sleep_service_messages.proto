@@ -195,14 +195,17 @@ message SaveSleepDayResponse {
 // =======================
 
 message SaveBaselineRequest {
-  int64 avg_duration_sec = 1;
-  double avg_efficiency = 2;
-  double avg_deep_rem_ratio = 3;
-  string avg_bedtime = 4;          // HH:mm format
-  string avg_waketime = 5;         // HH:mm format
-  int32 session_count = 6;         // Number of sessions used to calculate baseline
-  optional string window_start = 7;         // ISO datetime - start of baseline window
-  optional string window_end = 8;           // ISO datetime - end of baseline window
+  optional string window_start = 1;              // ISO datetime - start of baseline window
+  optional string window_end = 2;                // ISO datetime - end of baseline window
+  int32 sample_size = 3;                         // Number of sessions used to calculate baseline
+  double avg_total_sleep_min = 4;                // Average total sleep in minutes
+  double avg_sleep_efficiency_pct = 5;           // Average sleep efficiency percentage
+  double avg_rem_pct = 6;                        // Average REM sleep percentage
+  double avg_deep_pct = 7;                       // Average deep sleep percentage
+  double avg_hr = 8;                             // Average heart rate
+  double avg_hrv = 9;                            // Average heart rate variability
+  optional string avg_bedtime = 10;              // HH:mm format
+  optional string avg_waketime = 11;             // HH:mm format
 }
 
 message SaveBaselineResponse {
