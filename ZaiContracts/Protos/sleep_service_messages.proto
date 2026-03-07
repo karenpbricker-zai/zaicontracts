@@ -367,6 +367,23 @@ message GetHomeScreenResponse {
   // Experiment suggestion flag (lightweight - full details via GetRecommendedExperiment)
   // True when: same pattern ≥3 times, confidence ≥ moderate, no active experiment
   bool experiment_suggestion_available = 13;
+  TodayComps comps = 14;
+}
+
+message Comps {
+	double today_data = 1;
+	double baseline_data = 2;
+	double delta = 3;
+	double rate = 4;
+	double goal_value = 5;
+}
+
+message TodayComps {
+	Comps total_sleep_hours = 1;
+	Comps sleep_efficiency = 2;
+	Comps rem_sleep = 3;
+	Comps deep_sleep = 4;
+	Comps bed_time = 5;
 }
 
 message StandoutItem {
