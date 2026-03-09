@@ -384,6 +384,11 @@ message TodayComps {
 	Comps rem_sleep = 3;
 	Comps deep_sleep = 4;
 	Comps bed_time = 5;
+	Comps wake_time = 6;
+	Comps hr = 7;
+	Comps hrv = 8;
+	optional string window_start = 9;              // ISO datetime - start of baseline window
+    optional string window_end = 10;  
 }
 
 message StandoutItem {
