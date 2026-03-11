@@ -446,6 +446,7 @@ message GetWeeklyReportResponse {
   int32 baseline_score = 5;
   int32 delta = 6;
   repeated WeeklyReportElementDto elements = 7;
+  string analyze_json = 8;
 }
 
 message WeeklyReportElementDto {
