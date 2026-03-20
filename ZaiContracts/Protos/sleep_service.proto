@@ -53,4 +53,12 @@ service SleepService {
   // Weekly report - list of report summaries
   rpc GetWeeklyReportsList (GetWeeklyReportsListRequest)
       returns (GetWeeklyReportsListResponse);
+
+  // Daily report - single report detail
+  rpc GetDailyReport (GetDailyReportRequest)
+      returns (GetDailyReportResponse);
+
+  // Daily report - list of report summaries
+  rpc GetDailyReportsList (GetDailyReportsListRequest)
+      returns (GetDailyReportsListResponse);
 }

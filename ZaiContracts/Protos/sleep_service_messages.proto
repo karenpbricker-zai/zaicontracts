@@ -471,3 +471,53 @@ message WeeklyReportSummary {
   int32 overall_score = 3;
   int32 delta = 4;
 }
+
+// =======================
+// DAILY REPORT
+// =======================
+
+message GetDailyReportRequest {
+  string report_date = 1;  // Optional: ISO date, defaults to most recent
+}
+
+message GetDailyReportResponse {
+  bool has_report = 1;
+  string report_date = 2;
+  int32 overall_score = 3;
+  int32 baseline_score = 4;
+  int32 delta = 5;
+  repeated DailyReportElementDto elements = 6;
+  string summary = 7;
+  DailyAreaAnalysis total_sleep = 8;
+  DailyAreaAnalysis rem_sleep = 9;
+  DailyAreaAnalysis deep_sleep = 10;
+  DailyAreaAnalysis hrv = 11;
+}
+
+message DailyAreaAnalysis {
+  string good_or_bad_reason = 1;
+  string improve_recommendation = 2;
+  string general_impact_to_health = 3;
+}
+
+message DailyReportElementDto {
+  SleepElement element = 1;
+  int32 score = 2;
+  int32 baseline_avg_score = 3;
+  int32 delta = 4;
+  string status = 5;
+}
+
+message GetDailyReportsListRequest {
+  int32 limit = 1;  // defaults to 10
+}
+
+message GetDailyReportsListResponse {
+  repeated DailyReportSummary reports = 1;
+}
+
+message DailyReportSummary {
+  string report_date = 1;
+  int32 overall_score = 2;
+  int32 delta = 3;
+}
