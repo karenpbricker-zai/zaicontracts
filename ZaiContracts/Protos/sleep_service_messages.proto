@@ -492,6 +492,9 @@ message GetDailyReportResponse {
   DailyAreaAnalysis rem_sleep = 9;
   DailyAreaAnalysis deep_sleep = 10;
   DailyAreaAnalysis hrv = 11;
+  string good_areas = 12;
+  string recommendations = 13;
+  string actions = 14;
 }
 
 message DailyAreaAnalysis {
