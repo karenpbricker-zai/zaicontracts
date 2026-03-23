@@ -23,6 +23,9 @@ service AuthService {
 
   // Unregister device token (e.g. on sign out)
   rpc UnregisterDeviceToken(UnregisterDeviceTokenRequest) returns (UnregisterDeviceTokenResponse);
+
+  // Update user email
+  rpc UpdateUserEmail(UpdateUserEmailRequest) returns (UpdateUserEmailResponse);
 }
 
 // ==================
@@ -108,4 +111,17 @@ message UnregisterDeviceTokenRequest {
 
 message UnregisterDeviceTokenResponse {
   bool success = 1;
+}
+
+// ==================
+// Update User Email
+// ==================
+
+message UpdateUserEmailRequest {
+  string email = 1;
+}
+
+message UpdateUserEmailResponse {
+  bool success = 1;
+  string message = 2;
 }
