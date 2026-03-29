@@ -39,6 +39,7 @@ message CreateAnonymousUserRequest {
 message CreateAnonymousUserResponse {
   string user_id = 1;
   string access_token = 2;  // Currently just returns user_id, later will be JWT
+  bool is_premium = 3;
 }
 
 // ==================
