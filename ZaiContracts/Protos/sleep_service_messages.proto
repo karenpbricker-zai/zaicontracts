@@ -368,6 +368,10 @@ message GetHomeScreenResponse {
   // True when: same pattern ≥3 times, confidence ≥ moderate, no active experiment
   bool experiment_suggestion_available = 13;
   TodayComps comps = 14;
+
+  // Optional daily report for this date, if one has been generated.
+  // Null/absent when no report exists yet.
+  optional GetDailyReportResponse daily_report = 15;
 }
 
 message Comps {
