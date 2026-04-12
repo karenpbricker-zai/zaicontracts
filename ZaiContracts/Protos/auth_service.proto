@@ -26,6 +26,9 @@ service AuthService {
 
   // Update user email
   rpc UpdateUserEmail(UpdateUserEmailRequest) returns (UpdateUserEmailResponse);
+
+  // Get user by ID
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }
 
 // ==================
@@ -125,4 +128,23 @@ message UpdateUserEmailRequest {
 message UpdateUserEmailResponse {
   bool success = 1;
   string message = 2;
+}
+
+// ==================
+// Get User
+// ==================
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  string user_id = 1;
+  optional string email = 2;
+  optional string device_id = 3;
+  optional string apple_user_id = 4;
+  bool is_anonymous = 5;
+  bool is_premium = 6;
+  string created_at = 7;
+  string updated_at = 8;
 }
