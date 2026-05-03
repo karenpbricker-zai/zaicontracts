@@ -532,7 +532,9 @@ message DailyReportElementDto {
 }
 
 message GetDailyReportsListRequest {
-  int32 limit = 1;  // defaults to 10
+  int32 limit = 1;  // defaults to 10; applied as a safety cap when date range is set
+  string start_date = 2;  // optional, "yyyy-MM-dd" — inclusive
+  string end_date = 3;    // optional, "yyyy-MM-dd" — inclusive
 }
 
 message GetDailyReportsListResponse {
