@@ -277,11 +277,27 @@ message SubmitSleepContextRequest {
   bool caffeine_after_2pm = 3;
   bool worked_late = 4;
   string notes = 5;
+  bool alcohol_tonight = 6;
+  bool big_meal_late = 7;
+  bool exercise_today = 8;
 }
 
 message SubmitSleepContextResponse {
   bool success = 1;
   string input_id = 2;
+  SleepContext context = 3;
+}
+
+message SleepContext {
+  string input_id = 1;
+  string date = 2;
+  StressLevel stress_level = 3;
+  bool caffeine_after_2pm = 4;
+  bool worked_late = 5;
+  bool alcohol_tonight = 6;
+  bool big_meal_late = 7;
+  bool exercise_today = 8;
+  string notes = 9;
 }
 
 message GetExperimentHistoryRequest {
