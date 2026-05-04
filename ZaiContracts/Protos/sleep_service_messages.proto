@@ -478,7 +478,9 @@ message WeeklyReportElementDto {
 }
 
 message GetWeeklyReportsListRequest {
-  int32 limit = 1;  // defaults to 10
+  int32 limit = 1;  // defaults to 10; applied as a safety cap when date range is set
+  string start_date = 2;  // optional, "yyyy-MM-dd" — inclusive (matched against week_start_date)
+  string end_date = 3;    // optional, "yyyy-MM-dd" — inclusive (matched against week_start_date)
 }
 
 message GetWeeklyReportsListResponse {
@@ -490,6 +492,12 @@ message WeeklyReportSummary {
   string week_end_date = 2;
   int32 overall_score = 3;
   int32 delta = 4;
+  repeated DailyOverallScore daily_scores = 5;  // daily overall scores within this week (only days that have a daily report)
+}
+
+message DailyOverallScore {
+  string date = 1;            // "yyyy-MM-dd"
+  int32 overall_score = 2;
 }
 
 // =======================
