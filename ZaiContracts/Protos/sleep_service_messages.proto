@@ -493,11 +493,31 @@ message WeeklyReportSummary {
   int32 overall_score = 3;
   int32 delta = 4;
   repeated DailyOverallScore daily_scores = 5;  // daily overall scores within this week (only days that have a daily report)
+  repeated DriftOffBucket drift_off_buckets = 6;  // always 4 entries (one per non-UNSPECIFIED enum value); empty buckets carry zeros
+  string drift_off_insight = 7;                   // server-generated copy, e.g. "You drift off about 18 min faster before 10:30 PM."
 }
 
 message DailyOverallScore {
   string date = 1;            // "yyyy-MM-dd"
   int32 overall_score = 2;
+}
+
+message DriftOffBucket {
+  // Bedtime range, inclusive lower bound, exclusive upper.
+  DriftOffBedtimeBucket bucket = 1;
+  // Average sleep latency in minutes for nights whose bedtime fell in this bucket.
+  // 0 when no nights contributed (see night_count).
+  int32 avg_latency_min = 2;
+  // Number of nights that contributed — 0 indicates an empty bucket.
+  int32 night_count = 3;
+}
+
+enum DriftOffBedtimeBucket {
+  DRIFT_OFF_BEDTIME_UNSPECIFIED   = 0;
+  DRIFT_OFF_BEDTIME_BEFORE_10_30  = 1;  // bedtime < 22:30
+  DRIFT_OFF_BEDTIME_10_30_TO_11   = 2;  // [22:30, 23:00)
+  DRIFT_OFF_BEDTIME_11_TO_11_30   = 3;  // [23:00, 23:30)
+  DRIFT_OFF_BEDTIME_AFTER_11_30   = 4;  // [23:30, 24:00) and wrap-around (00:00, 12:00)
 }
 
 // =======================
