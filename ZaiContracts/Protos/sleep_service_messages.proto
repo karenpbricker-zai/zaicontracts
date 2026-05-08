@@ -236,6 +236,21 @@ message ExperimentStatus {
   string end_date = 5;
   int32 days_completed = 6;
   int32 duration_nights = 7;
+
+  string name = 8;              // e.g. "Earlier bedtime, deeper sleep"
+  string description = 9;       // e.g. "We're testing whether bed by 10:45 PM lifts your deep sleep above the 18% baseline."
+
+  int32 baseline_score = 10;    // value of the target metric in metric_unit, averaged over 14 days before start_date
+  string metric_label = 11;     // human-readable, e.g. "deep sleep" / "REM" / "HRV"
+  string metric_unit = 12;      // "min" / "%" / "ms"
+
+  repeated NightValue nightly_values = 13;  // per-night metric values since start; nights without a SleepDay row are skipped
+}
+
+message NightValue {
+  string date = 1;       // "yyyy-MM-dd"
+  int32 day_number = 2;  // 1..duration_nights, sequential from start_date
+  int32 value = 3;       // value in metric_unit
 }
 
 message ExperimentResult {
@@ -493,7 +508,7 @@ message WeeklyReportSummary {
   int32 overall_score = 3;
   int32 delta = 4;
   repeated DailyOverallScore daily_scores = 5;  // daily overall scores within this week (only days that have a daily report)
-  repeated DriftOffBucket drift_off_buckets = 6;  // always 4 entries (one per non-UNSPECIFIED enum value); empty buckets carry zeros
+  repeated DriftOffBucket drift_off_buckets = 6;  // always 4 entries (one per non-UNSPECIFIED enum value); aggregates a trailing window of nights ending at this week's end_date so a single thin week isn't shown alone; empty buckets carry zeros
   string drift_off_insight = 7;                   // server-generated copy, e.g. "You drift off about 18 min faster before 10:30 PM."
 }
 
