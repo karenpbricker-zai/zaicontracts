@@ -17,8 +17,15 @@ service ExperimentService {
   rpc GetActiveExperiment (zaicontracts.sleep.GetActiveExperimentRequest)
       returns (zaicontracts.sleep.ExperimentStatus);
 
-  // Complete an experiment and get results
+  // Complete an experiment and get results.
+  // Requires the run's EndDate to be already set (auto-set by GetActiveExperiment when duration elapses).
   rpc CompleteExperiment (zaicontracts.sleep.CompleteExperimentRequest)
+      returns (zaicontracts.sleep.ExperimentResult);
+
+  // End an active experiment early (user-initiated stop) and get results.
+  // Sets EndDate=today, then runs the same scoring + AI analysis as CompleteExperiment.
+  // Confidence will be lower than a full-duration run.
+  rpc EndExperimentEarly (zaicontracts.sleep.EndExperimentEarlyRequest)
       returns (zaicontracts.sleep.ExperimentResult);
 
   // Submit sleep context (stress, caffeine, etc.) for a night

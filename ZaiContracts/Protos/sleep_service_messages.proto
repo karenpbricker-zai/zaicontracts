@@ -286,6 +286,10 @@ message CompleteExperimentRequest {
   string run_id = 1;
 }
 
+message EndExperimentEarlyRequest {
+  string run_id = 1;
+}
+
 message SubmitSleepContextRequest {
   string date = 1;
   StressLevel stress_level = 2;
