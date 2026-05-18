@@ -592,4 +592,6 @@ message DailyReportSummary {
   string report_date = 1;
   int32 overall_score = 2;
   int32 delta = 3;
+  int32 time_in_bed_min = 4;   // from SleepDay.time_in_bed_min for this date; 0 if no SleepDay row
+  int32 awake_time_min = 5;    // from SleepDay.waso_min — total time awake after sleep onset; 0 if no SleepDay row
 }
