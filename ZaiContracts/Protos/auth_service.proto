@@ -70,6 +70,7 @@ message SignInWithAppleRequest {
   string apple_user_id = 1;
   string email = 2;
   string full_name = 3;
+  string device_id = 4;  // Optional. Stored on the user record (new user) or updated (existing apple user on a new device). Empty string = not provided.
 }
 
 message SignInWithAppleResponse {
