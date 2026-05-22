@@ -521,6 +521,26 @@ message DailyOverallScore {
   int32 overall_score = 2;
 }
 
+// =======================
+// WINDOW INSIGHTS
+// =======================
+
+message GetWindowInsightsRequest {
+  string start_date = 1;  // "yyyy-MM-dd" — inclusive
+  string end_date = 2;    // "yyyy-MM-dd" — inclusive
+}
+
+message GetWindowInsightsResponse {
+  bool has_report = 1;                          // false if fewer than 3 nights with scores in the window
+  string start_date = 2;
+  string end_date = 3;
+  string summary = 4;                           // AI-generated overview of the window
+  repeated string good_areas = 5;               // What's helping you
+  repeated string recommendations = 6;          // What's tripping you up
+  repeated string actions = 7;                  // Worth noting
+  repeated DailyOverallScore daily_scores = 8;  // Per-day overall score for every day in the window that has a daily report
+}
+
 message DriftOffBucket {
   // Bedtime range, inclusive lower bound, exclusive upper.
   DriftOffBedtimeBucket bucket = 1;

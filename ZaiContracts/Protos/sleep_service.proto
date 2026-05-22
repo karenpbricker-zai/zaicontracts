@@ -61,4 +61,9 @@ service SleepService {
   // Daily report - list of report summaries
   rpc GetDailyReportsList (GetDailyReportsListRequest)
       returns (GetDailyReportsListResponse);
+
+  // Window insights - AI-generated analysis for an arbitrary date range (e.g. last 7/14/30 days).
+  // Generated on-demand. Frontend is expected to cache.
+  rpc GetWindowInsights (GetWindowInsightsRequest)
+      returns (GetWindowInsightsResponse);
 }
