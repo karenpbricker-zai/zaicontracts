@@ -29,6 +29,9 @@ service AuthService {
 
   // Get user by ID
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
+
+  // Delete account and all associated data
+  rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse);
 }
 
 // ==================
@@ -148,4 +151,17 @@ message GetUserResponse {
   bool is_premium = 6;
   string created_at = 7;
   string updated_at = 8;
+}
+
+// ==================
+// Delete Account
+// ==================
+
+message DeleteAccountRequest {
+  string user_id = 1;
+}
+
+message DeleteAccountResponse {
+  bool success = 1;
+  string message = 2;
 }
