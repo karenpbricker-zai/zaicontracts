@@ -34,6 +34,12 @@ service SleepService {
   rpc SaveSleepDay (SaveSleepDayRequest)
       returns (SaveSleepDayResponse);
 
+  // Bulk-ingest sleep history (e.g. on first HealthKit connect). Saves all nights,
+  // recomputes baseline once at the end, scores every night against the final baseline,
+  // and skips per-night AI generation. AI insights come from GetWindowInsights afterward.
+  rpc IngestSleepHistory (IngestSleepHistoryRequest)
+      returns (IngestSleepHistoryResponse);
+
   // Save user baseline
   rpc SaveBaseline (SaveBaselineRequest)
       returns (SaveBaselineResponse);

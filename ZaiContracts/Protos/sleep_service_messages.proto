@@ -191,6 +191,23 @@ message SaveSleepDayResponse {
 }
 
 // =======================
+// BULK INGEST (onboarding backfill)
+// =======================
+
+// Reuses SaveSleepDayRequest as the per-night payload so iOS only has to build one
+// shape. user_id is implicit from the auth header; nights are deduped by date.
+message IngestSleepHistoryRequest {
+  repeated SaveSleepDayRequest nights = 1;
+}
+
+message IngestSleepHistoryResponse {
+  bool success = 1;
+  int32 nights_ingested = 2;     // Count of SleepDay rows upserted
+  bool baseline_ready = 3;       // True if a baseline was produced from the ingested data
+  string message = 4;
+}
+
+// =======================
 // BASELINE DATA
 // =======================
 
