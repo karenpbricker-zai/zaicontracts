@@ -15,6 +15,12 @@ service AuthService {
   // Sign in with Apple (create or login)
   rpc SignInWithApple(SignInWithAppleRequest) returns (SignInWithAppleResponse);
 
+  // Link anonymous account to Google ID (for multi-device sync)
+  rpc LinkGoogleAccount(LinkGoogleAccountRequest) returns (LinkGoogleAccountResponse);
+
+  // Sign in with Google (create or login)
+  rpc SignInWithGoogle(SignInWithGoogleRequest) returns (SignInWithGoogleResponse);
+
   // Save user profile (one user = one profile, upsert)
   rpc SaveUserProfile(SaveUserProfileRequest) returns (SaveUserProfileResponse);
 
@@ -83,6 +89,40 @@ message SignInWithAppleResponse {
 }
 
 // ==================
+// Link Google Account
+// ==================
+
+message LinkGoogleAccountRequest {
+  string anonymous_user_id = 1;
+  string google_user_id = 2;  // Google account ID ("sub" claim from the Google ID token)
+  string email = 3;
+  string full_name = 4;
+}
+
+message LinkGoogleAccountResponse {
+  string user_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// ==================
+// Google Sign In
+// ==================
+
+message SignInWithGoogleRequest {
+  string google_user_id = 1;  // Google account ID ("sub" claim from the Google ID token)
+  string email = 2;
+  string full_name = 3;
+  string device_id = 4;  // Optional. Stored on the user record (new user) or updated (existing google user on a new device). Empty string = not provided.
+}
+
+message SignInWithGoogleResponse {
+  string user_id = 1;
+  string access_token = 2;
+  bool is_new_user = 3;
+}
+
+// ==================
 // User Profile
 // ==================
 
@@ -105,8 +145,8 @@ message SaveUserProfileResponse {
 // ==================
 
 message RegisterDeviceTokenRequest {
-  string token = 1;        // APNS device token (hex string)
-  string platform = 2;     // "ios" (future: "android")
+  string token = 1;        // APNS device token (iOS, hex string) or FCM registration token (Android)
+  string platform = 2;     // "ios" | "android" (defaults to "ios" when empty)
 }
 
 message RegisterDeviceTokenResponse {
@@ -151,6 +191,7 @@ message GetUserResponse {
   bool is_premium = 6;
   string created_at = 7;
   string updated_at = 8;
+  optional string google_user_id = 9;
 }
 
 // ==================
