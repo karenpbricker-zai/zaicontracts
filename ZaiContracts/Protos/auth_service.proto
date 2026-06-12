@@ -21,6 +21,10 @@ service AuthService {
   // Sign in with Google (create or login)
   rpc SignInWithGoogle(SignInWithGoogleRequest) returns (SignInWithGoogleResponse);
 
+  // Exchange a valid (unexpired) JWT for a fresh one. Call when the current
+  // token is older than ~half its lifetime. Requires authentication.
+  rpc RefreshAccessToken(RefreshAccessTokenRequest) returns (RefreshAccessTokenResponse);
+
   // Save user profile (one user = one profile, upsert)
   rpc SaveUserProfile(SaveUserProfileRequest) returns (SaveUserProfileResponse);
 
@@ -50,8 +54,9 @@ message CreateAnonymousUserRequest {
 
 message CreateAnonymousUserResponse {
   string user_id = 1;
-  string access_token = 2;  // Currently just returns user_id, later will be JWT
+  string access_token = 2;  // Legacy: equals user_id. Will be removed after JWT migration.
   bool is_premium = 3;
+  string jwt_access_token = 4;  // Signed JWT. Send as "authorization: Bearer <jwt>" on every call.
 }
 
 // ==================
@@ -63,12 +68,14 @@ message LinkAppleAccountRequest {
   string apple_user_id = 2;
   string email = 3;
   string full_name = 4;
+  string identity_token = 5;  // Apple identityToken (JWT) from ASAuthorization. Verified server-side; sub must equal apple_user_id.
 }
 
 message LinkAppleAccountResponse {
   string user_id = 1;
   bool success = 2;
   string message = 3;
+  string jwt_access_token = 4;  // Signed JWT for the (possibly migrated) user.
 }
 
 // ==================
@@ -80,12 +87,14 @@ message SignInWithAppleRequest {
   string email = 2;
   string full_name = 3;
   string device_id = 4;  // Optional. Stored on the user record (new user) or updated (existing apple user on a new device). Empty string = not provided.
+  string identity_token = 5;  // Apple identityToken (JWT) from ASAuthorization. Verified server-side; sub must equal apple_user_id.
 }
 
 message SignInWithAppleResponse {
   string user_id = 1;
-  string access_token = 2;
+  string access_token = 2;  // Legacy: equals user_id. Will be removed after JWT migration.
   bool is_new_user = 3;
+  string jwt_access_token = 4;  // Signed JWT. Send as "authorization: Bearer <jwt>" on every call.
 }
 
 // ==================
@@ -97,12 +106,14 @@ message LinkGoogleAccountRequest {
   string google_user_id = 2;  // Google account ID ("sub" claim from the Google ID token)
   string email = 3;
   string full_name = 4;
+  string identity_token = 5;  // Google ID token (JWT) from the Sign-In SDK. Verified server-side; sub must equal google_user_id.
 }
 
 message LinkGoogleAccountResponse {
   string user_id = 1;
   bool success = 2;
   string message = 3;
+  string jwt_access_token = 4;  // Signed JWT for the (possibly migrated) user.
 }
 
 // ==================
@@ -114,12 +125,26 @@ message SignInWithGoogleRequest {
   string email = 2;
   string full_name = 3;
   string device_id = 4;  // Optional. Stored on the user record (new user) or updated (existing google user on a new device). Empty string = not provided.
+  string identity_token = 5;  // Google ID token (JWT) from the Sign-In SDK. Verified server-side; sub must equal google_user_id.
 }
 
 message SignInWithGoogleResponse {
   string user_id = 1;
-  string access_token = 2;
+  string access_token = 2;  // Legacy: equals user_id. Will be removed after JWT migration.
   bool is_new_user = 3;
+  string jwt_access_token = 4;  // Signed JWT. Send as "authorization: Bearer <jwt>" on every call.
+}
+
+// ==================
+// Token Refresh
+// ==================
+
+message RefreshAccessTokenRequest {
+  // Empty: identity comes from the authorization header (current JWT must still be valid).
+}
+
+message RefreshAccessTokenResponse {
+  string jwt_access_token = 1;  // Fresh JWT replacing the one used to authenticate this call.
 }
 
 // ==================
