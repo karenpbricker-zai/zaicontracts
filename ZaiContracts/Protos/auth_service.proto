@@ -158,6 +158,7 @@ message SaveUserProfileRequest {
   zaicontracts.sleep.ProfileSleepTime get_on_bed_time = 4;
   zaicontracts.sleep.ProfileWakeTime get_up_time = 5;
   int32 motivation = 6;
+  string time_zone_id = 7; // IANA timezone id, e.g. "America/Los_Angeles" (optional; empty = unknown)
 }
 
 message SaveUserProfileResponse {
