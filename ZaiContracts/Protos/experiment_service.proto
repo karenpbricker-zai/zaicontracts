@@ -1,6 +1,10 @@
 syntax = "proto3";
 
 package zaicontracts.experiment;
+
+option java_multiple_files = true;
+option java_package = "zaicontracts.experiment";
+
 import "Protos/sleep_service_messages.proto";
 
 // Experiment Service - manages sleep improvement experiments

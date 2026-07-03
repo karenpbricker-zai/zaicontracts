@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package zaicontracts.auth;
 
+option java_multiple_files = true;
+option java_package = "zaicontracts.auth";
+
 import "Protos/sleep_service_enums.proto";
 
 // Authentication Service

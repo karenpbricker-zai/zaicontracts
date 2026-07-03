@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package zaicontracts.sleep;
 
+option java_multiple_files = true;
+option java_package = "zaicontracts.sleep";
+
 enum SleepElement {
   SLEEP_ELEMENT_UNSPECIFIED = 0;
   SLEEP_ELEMENT_SLEEP_SCHEDULE = 1;
