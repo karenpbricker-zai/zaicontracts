@@ -31,6 +31,9 @@ service AuthService {
   // Save user profile (one user = one profile, upsert)
   rpc SaveUserProfile(SaveUserProfileRequest) returns (SaveUserProfileResponse);
 
+  // Get the authenticated user's saved profile plus account email
+  rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse);
+
   // Register device token for push notifications
   rpc RegisterDeviceToken(RegisterDeviceTokenRequest) returns (RegisterDeviceTokenResponse);
 
@@ -167,6 +170,22 @@ message SaveUserProfileRequest {
 message SaveUserProfileResponse {
   bool success = 1;
   string message = 2;
+}
+
+message GetUserProfileRequest {
+  // Empty: identity comes from the authorization header.
+}
+
+message GetUserProfileResponse {
+  bool has_profile = 1;  // false when the user has not saved a profile yet (fields 2-8 hold proto defaults)
+  zaicontracts.sleep.ProfileSleepGoal sleep_goal = 2;
+  double sleep_time = 3;
+  int32 sleep_quality = 4;
+  zaicontracts.sleep.ProfileSleepTime get_on_bed_time = 5;
+  zaicontracts.sleep.ProfileWakeTime get_up_time = 6;
+  int32 motivation = 7;
+  string time_zone_id = 8;   // IANA timezone id, e.g. "America/Los_Angeles" (empty = unknown)
+  optional string email = 9; // account email; unset when the account has none (e.g. anonymous user)
 }
 
 // ==================

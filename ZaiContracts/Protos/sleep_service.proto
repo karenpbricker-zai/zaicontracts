@@ -15,24 +15,9 @@ service SleepService {
   // Chat with sleep assistant with streaming response
   rpc Chat (SleepChatRequest) returns (stream SleepChatResponse);
 
-  rpc GetSleepScore(GetSleepScoreRequest) returns (GetSleepScoreResponse);
-  rpc WeeklyInsights(WeeklyInsightsRequest) returns (WeeklyInsightsResponse);
-
   // Home / Today screen
   rpc GetToday (GetTodayRequest)
       returns (GetTodayResponse);
-
-  // Premium issue detail
-  rpc GetIssueDetail (GetIssueDetailRequest)
-      returns (GetIssueDetailResponse);
-
-  // Improve tab (single focus action)
-  rpc GetImprove (GetImproveRequest)
-      returns (GetImproveResponse);
-
-  // Trends & history
-  rpc GetInsights (GetInsightsRequest)
-      returns (GetInsightsResponse);
 
   // Save sleep day data from HealthKit/UserInput
   rpc SaveSleepDay (SaveSleepDayRequest)
